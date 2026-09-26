@@ -117,7 +117,7 @@ Availability means data stays reachable even if something breaks. This pillar is
 
 Unlike the previous two sections, this one is more about confirming the configuration than attacking and recovering.
 
-## Cleanup (Work in Progress)
+## Cleanup
 
 Deleting the bucket turned out to be its own lesson. With versioning enabled, even `aws s3 rb --force` isn't enough:
 
@@ -129,9 +129,9 @@ aws s3 rb s3://test2-security-s3 --force
 remove_bucket failed: BucketNotEmpty, You must delete all versions in the bucket.
 ```
 
-The `--force` flag deletes current versions but leaves delete markers and older versions behind, nothing is ever silently lost, which is the whole point of versioning, but it does mean cleanup takes deliberate extra steps. I'm working through doing this properly via CLI (rather than just clicking through the console), that write-up is coming soon.
+The `--force` flag deletes current versions but leaves delete markers and older versions behind, nothing is ever silently lost, which is the whole point of versioning, but it does mean cleanup takes deliberate extra steps.  
 
-**If you've solved this before, I'd love to hear how.** My specific blocker: batch-deleting all versions and delete markers via `aws s3api delete-objects` requires passing JSON through `--delete`, and on Windows PowerShell I kept hitting encoding issues (UTF-16 line breaks, then a BOM at the start of the file) that made AWS's JSON parser reject the file. If you've run into this on PowerShell and found a clean fix, drop a comment or open an issue, genuinely curious what I'm missing.
+I asked the community about this, and was pointed to AWS's documentation on deleting object versions. The fix was to delete all versions of each object individually — looping aws s3api delete-object over every Key/VersionId pair — rather than trying to batch everything through delete-objects with a single JSON payload (which is where I kept hitting Windows PowerShell encoding issues). Once I deleted every version and delete marker that way, the bucket was empty and aws s3 rb finally succeeded
 
 ## Lessons Learned
 
