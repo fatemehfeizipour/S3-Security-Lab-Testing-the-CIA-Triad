@@ -131,7 +131,7 @@ remove_bucket failed: BucketNotEmpty, You must delete all versions in the bucket
 
 The `--force` flag deletes current versions but leaves delete markers and older versions behind, nothing is ever silently lost, which is the whole point of versioning, but it does mean cleanup takes deliberate extra steps.  
 
-I asked the community about this, and was pointed to AWS's documentation on deleting object versions. The fix was to delete all versions of each object individually — looping aws s3api delete-object over every Key/VersionId pair — rather than trying to batch everything through delete-objects with a single JSON payload (which is where I kept hitting Windows PowerShell encoding issues). Once I deleted every version and delete marker that way, the bucket was empty and aws s3 rb finally succeeded
+I asked the community about this, and was pointed to AWS's documentation on deleting object versions. The fix was to delete all versions of each object individually, looping aws s3api delete-object over every Key/VersionId pair, rather than trying to batch everything through delete-objects with a single JSON payload (which is where I kept hitting Windows PowerShell encoding issues). Once I deleted every version and delete marker that way, the bucket was empty and aws s3 rb finally succeeded
 
 ## Lessons Learned
 
