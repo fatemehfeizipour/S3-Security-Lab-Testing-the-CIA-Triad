@@ -138,3 +138,7 @@ I asked the community about this, and was pointed to AWS's documentation on dele
 The biggest lesson wasn't any single command, it was how often I mixed up two similar-sounding things: Network ACLs vs. S3 ACLs, Version ID vs. Owner ID, an ARN's service field vs. its resource field. These weren't knowledge gaps so much as precision gaps, I understood the concepts, but hadn't yet built the habit of keeping the details straight under pressure.
 
 That's really the value of building this hands-on instead of just reading about it. Misconfigurations are usually simple, once you see them clearly, but you only really see them clearly after tripping over them yourself.
+
+### [Medium Blog](https://medium.com/@fatemehfeizipur/building-a-broken-cloud-to-learn-how-to-build-a-secure-one-a-hands-on-cia-triad-lab-497917b6c4cd?sharedUserId=fatemehfeizipur)
+
+### [Video walkthrough](https://lnkd.in/p/g_M-AziK)
